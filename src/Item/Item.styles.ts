@@ -18,4 +18,10 @@ export const Wrapper = styled.div`
     object-fit: cover;
     border-radius: 20px 20px 0 0;
   }
+
+  div {
+    font-family: Arial, Helevetica, sans-sarif;
+    padding: 1rem;
+    height: 100%;
+  }
 `;
