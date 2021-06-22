@@ -44,9 +44,38 @@ const App = () => {
       return acc + item.amount;
     }, 0);
 
-  const handleAddToCart = (clicked: CartItemType) => null;
+  const handleAddToCart = (clicked: CartItemType) => {
+    console.log(clicked);
 
-  const handleRemoveFromCart = () => null;
+    setCartItems(prev => {
+      const isItemInCart = prev.find(item => item.id === clicked.id);
+
+      if (isItemInCart) {
+        return prev.map(item => (item.id === clicked.id ? { ...item, amount: item.amount + 1 } : item));
+      }
+
+      return [...prev, { ...clicked, amount: 1 }];
+    });
+
+    console.log(cartItems);
+  };
+
+  const handleRemoveFromCart = (id: number) => {
+    setCartItems(prev => {
+      return prev.reduce((acc, item) => {
+        console.log(prev);
+        if (item.id === id) {
+          console.log(acc);
+          console.log(item);
+          if (item.amount === 1) return acc;
+
+          return [...acc, { ...item, amount: item.amount - 1 }];
+        } else {
+          return [...acc, item];
+        }
+      }, [] as CartItemType[]);
+    });
+  };
 
   if (isLoading) return <LinearProgress />;
 
